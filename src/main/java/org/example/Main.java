@@ -1,7 +1,5 @@
 package org.example;
-
-
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -11,26 +9,29 @@ public class Main {
 
         //Create Scanner Object for user input
         Scanner scanner = new Scanner(System.in);
-        // GATHER EMPLOYEE DETAILS - Get Name and Rate
-        String name = EmployeeInput.getName(scanner);
-        double rate = EmployeeInput.getRate(scanner);
-        // Create an object of Employee with input from user
-        Employee employee = new Employee(name, rate);
 
-        // GATHER PAYROLL DETAILS - Get Date and hours worked
-        String date = Payroll.getDate(scanner);
+        // GATHER PAYROLL DETAILS
+        // Call the method to gather payroll details from the user and store the result in a PayrollDetails object.
+        PayrollDetails payrollDetails = PayrollInput.getPayRollEntries(scanner);
 
-        //Get Hours worked
-        ArrayList<Integer> hoursWorked = Payroll.getHoursWorked(scanner);
+        // Retrieve the Employee object from the PayrollDetails record for further processing.
+        Employee employee = payrollDetails.employee();
 
+        // Get the list of Payroll entries associated with the employee from the PayrollDetails record.
+        List<Payroll> payrollEntries = payrollDetails.payrollEntries();
 
+       // CALCULATE AND DISPLAY TOTAL PAY
+        double totalPay = 0;
+        for (Payroll payroll : payrollEntries) {
+            totalPay += payroll.calculatePay();
+        }
 
+        // Print employee name and total pay
+        System.out.println("Employee Name: " + employee.name());
+        System.out.println("Total Pay: " + totalPay);
 
-        //Create an object of Payroll with input from user
-        Payroll payroll = new Payroll(date, 5);
+        scanner.close();
 
-            // Print to test
-            System.out.println(employee.toString());
     }
 
 

@@ -28,7 +28,6 @@ public class EmployeeInput {
         return name;
     }
 
-
     /**
      * Prompting the user for their hourly rate
      * @param scanner - used to grab user input

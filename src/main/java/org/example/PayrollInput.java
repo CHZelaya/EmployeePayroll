@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class PayrollInput {
 
@@ -81,6 +83,7 @@ public class PayrollInput {
 
 
     public static PayrollDetails getPayRollEntries(Scanner scanner){
+        HashSet<String> uniqueDates = new HashSet<>();
         ArrayList<Payroll> payrollEntries = new ArrayList<>();
         boolean areThereMoreEntries = true;
 
@@ -93,6 +96,13 @@ public class PayrollInput {
         while (areThereMoreEntries){
             double hoursWorked = getHoursWorked(scanner);
             String dateWorked = getDateWorked(scanner);
+            // Check if the date is unique
+            if (uniqueDates.contains(dateWorked)) {
+                System.out.println("Duplicate date found: " + dateWorked + ". Please enter a different date.");
+                continue; // Skip to the next iteration to ask for a new date
+            }
+            // If the date is unique, add it to the set and create the Payroll entry
+            uniqueDates.add(dateWorked);
             payrollEntries.add(new Payroll(employee, dateWorked, hoursWorked));
 
             System.out.println("Are there any more entries to enter? (y/n)");

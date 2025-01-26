@@ -1,12 +1,10 @@
 package org.example;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
-import java.util.Set;
 
 public class PayrollInput {
 
@@ -39,8 +37,8 @@ public class PayrollInput {
     }
 
     /**
-     * Method used to grab the date the user worked
-     * @param scanner - Object passed as a parameter grab the input from the user
+     * Method used to grab the DATE the user worked their job
+     * @param scanner - Object passed as a parameter to read input from the console.
      * @return dateString that holds the users input (date) in a String type.
      */
     public static String getDateWorked(Scanner scanner){
@@ -64,7 +62,7 @@ public class PayrollInput {
 
 
     /**
-     * Parses the dateString inputed by the user to make sure its in the right format.
+     * Parses the dateString inputted by the user to make sure its in the right format.
      * @param dateString - the string inputted by the user
      * @return The date in dd-mm-yyyy format.
      */
@@ -81,7 +79,12 @@ public class PayrollInput {
     }
 
 
-
+    /**
+     * Collects payroll entries for an employee, restricts unique date.
+     * This method calls every other method that prompts the user for information regarding payroll entries
+     * @param scanner A Scanner object used to read user input from the console.
+     * @return A PayrollDetails object containing the employee information and a list of unique payroll entries.
+     */
     public static PayrollDetails getPayRollEntries(Scanner scanner){
         HashSet<String> uniqueDates = new HashSet<>();
         ArrayList<Payroll> payrollEntries = new ArrayList<>();
@@ -99,9 +102,9 @@ public class PayrollInput {
             // Check if the date is unique
             if (uniqueDates.contains(dateWorked)) {
                 System.out.println("Duplicate date found: " + dateWorked + ". Please enter a different date.");
-                continue; // Skip to the next iteration to ask for a new date
+                continue; // skip to next iteration
             }
-            // If the date is unique, add it to the set and create the Payroll entry
+            // If no error thrown, add as date is unique
             uniqueDates.add(dateWorked);
             payrollEntries.add(new Payroll(employee, dateWorked, hoursWorked));
 

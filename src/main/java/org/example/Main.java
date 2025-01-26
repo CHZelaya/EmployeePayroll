@@ -10,8 +10,8 @@ public class Main {
         //Create Scanner Object for user input
         Scanner scanner = new Scanner(System.in);
 
+
         // GATHER PAYROLL DETAILS
-        // Call the method to gather payroll details from the user and store the result in a PayrollDetails object.
         PayrollDetails payrollDetails = PayrollInput.getPayRollEntries(scanner);
 
         // Retrieve the Employee object from the PayrollDetails record for further processing.
@@ -26,9 +26,13 @@ public class Main {
             totalPay += payroll.calculatePay();
         }
 
+        // Format total pay as currency using the first Payroll instance
+        String formattedTotalPay = payrollEntries.get(0).formatCurrency(totalPay); // Call the method on the first instance
+
+
         // Print employee name and total pay
         System.out.println("Employee Name: " + employee.name());
-        System.out.println("Total Pay: " + totalPay);
+        System.out.println("Total Pay: " + formattedTotalPay);
 
         scanner.close();
 

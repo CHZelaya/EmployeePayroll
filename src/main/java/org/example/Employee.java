@@ -1,5 +1,3 @@
 package org.example;
 
-public record Employee(String name, double payRate) {
-
-}
+public record Employee(String name, double payRate) { }
